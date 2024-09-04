@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import bcrypt from 'bcrypt';
+import { hashSync } from 'bcrypt';
 
 @Entity()
 export class User {
@@ -14,7 +14,13 @@ export class User {
     nullable: false,
   })
   password: string;
-  static builder(id: number, email: string, password: string) {
+  static builderNew(email: string, password: string): User {
+    const user = new User();
+    user.email = email;
+    user.password = password;
+    return user;
+  }
+  static builder(id: number, email: string, password: string): User {
     const user = new User();
     user.id = id;
     user.email = email;
@@ -23,6 +29,6 @@ export class User {
   }
   @BeforeInsert()
   private async hashPassword() {
-    this.password = bcrypt.hashSync(this.password, 10);
+    this.password = hashSync(this.password, 10);
   }
 }
