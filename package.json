@@ -96,7 +96,8 @@
       "main.ts",
       "infra",
       ".*.module.ts",
-      ".eslintrc.js"
+      ".eslintrc.js",
+      "client.app"
     ]
   }
 }
