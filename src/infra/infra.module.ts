@@ -2,6 +2,8 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConfig } from './database.config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'node:path';
 
 @Module({})
 /**
@@ -12,6 +14,10 @@ export class InfraModule {
     return {
       module: InfraModule,
       imports: [
+        ServeStaticModule.forRoot({
+          rootPath: path.join(__dirname, '..', '..', 'client.app'),
+          exclude: ['/api/(.*)'],
+        }),
         TypeOrmModule.forRootAsync({
           imports: [ConfigModule],
           inject: [ConfigService],

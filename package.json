@@ -2,7 +2,7 @@
   "name": "encurlta",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Leonardo Bloise",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -27,6 +27,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/serve-static": "^4.0.2",
     "@nestjs/typeorm": "^10.0.2",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",

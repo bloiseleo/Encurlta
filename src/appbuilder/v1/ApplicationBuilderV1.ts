@@ -30,6 +30,7 @@ export class ApplicationBuilderV1 extends ApplicationBuilder {
     const app = await NestFactory.create(AppModule);
     this.setupPipes(app);
     this.setupFilters(app);
+    app.setGlobalPrefix('api');
     return app;
   }
 }
