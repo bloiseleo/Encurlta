@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
+import { setupFilters, setupPipes } from './common/setup.infra';
 
 async function bootstrap() {
   new Logger('Encurlta').debug(
@@ -10,7 +11,8 @@ async function bootstrap() {
       process.env.NODE_ENV,
   );
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+  setupPipes(app);
+  setupFilters(app);
   await app.listen(process.env.PORT ?? 3000);
 }
 

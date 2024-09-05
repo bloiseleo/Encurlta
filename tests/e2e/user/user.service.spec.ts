@@ -4,14 +4,11 @@ import { UserModule } from '../../../src/user/user.module';
 import UserServiceImpl from '../../../src/user/services/UserServiceImpl';
 import { User } from '../../../src/user/entities/user.entity';
 import { compareSync } from 'bcrypt';
-import { rmSync, existsSync } from 'fs';
+import { existsSync, rmSync } from 'fs';
 
 describe('User', () => {
   let app: INestApplication;
   beforeAll(async () => {
-    if (existsSync('./db')) {
-      rmSync('./db');
-    }
     const moduleRef = await bootstrapTestModule({
       imports: [UserModule],
     });
@@ -38,8 +35,6 @@ describe('User', () => {
   });
   afterAll(async () => {
     await app.close();
-    if (existsSync('./db')) {
-      rmSync('./db');
-    }
+    if (existsSync('./db')) rmSync('./db');
   });
 });

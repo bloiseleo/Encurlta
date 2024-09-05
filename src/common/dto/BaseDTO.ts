@@ -1,8 +1,8 @@
 export class BaseResponseDTO {
-  private time: string;
+  public time: string;
   constructor(
-    private status: number,
-    private message: string,
+    public status: number,
+    public message: string,
   ) {
     this.time = new Date().toString();
   }
