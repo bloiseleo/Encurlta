@@ -6,6 +6,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { InboundLoginDto } from '../../../src/auth/dtos/inbound/InboundLoginDto';
 import { setupFilters, setupPipes } from '../../../src/common/setup.infra';
 import { existsSync, rmSync } from 'fs';
+import { OutboundLoginDTO } from '../../../src/auth/dtos/outbound/OutboundLoginDTO';
+import { BaseResponseDTO } from '../../../src/common/dto/BaseDTO';
 
 const createInbound = (email: string, password: string) => {
   const inbound = new InboundLoginDto();
@@ -31,14 +33,71 @@ describe('AuthModule', () => {
     setupFilters(app);
     await app.init();
   });
+  describe('/auth/login', () => {
+    it('should register and login', async () => {
+      const userData = createInbound('usernormal@gmail.com', 'teste');
+      await request(app.getHttpServer())
+        .post('/auth/register')
+        .send(userData)
+        .expect(HttpStatus.CREATED);
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send(userData)
+        .expect(HttpStatus.OK)
+        .expect((response) => {
+          const { body } = response;
+          expect(body).toBeDefined();
+          const parsedBody = body as OutboundLoginDTO;
+          expect(parsedBody.status).toBe(HttpStatus.OK);
+          expect(parsedBody.token.length).toBeGreaterThan(0);
+          expect(parsedBody.message).toBe('User authenticated sucessfully');
+        });
+    });
+    it('should not login, because wrong password', async () => {
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send(createInbound('usernormal@gmail.com', 'teste123'))
+        .expect(HttpStatus.UNAUTHORIZED)
+        .expect((response) => {
+          const { body } = response;
+          expect(body).toBeDefined();
+          const parsedBody = body as BaseResponseDTO;
+          expect(parsedBody.status).toBe(HttpStatus.UNAUTHORIZED);
+          expect(parsedBody.message).toBe('Unauthorized');
+        });
+    });
+    it('should not login, because wrong data', async () => {
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send(createInbound('', ''))
+        .expect(HttpStatus.UNAUTHORIZED)
+        .expect((response) => {
+          const { body } = response;
+          expect(body).toBeDefined();
+          const parsedBody = body as BaseResponseDTO;
+          expect(parsedBody.status).toBe(HttpStatus.UNAUTHORIZED);
+          expect(parsedBody.message).toBe('Unauthorized');
+        });
+    });
+    it('should not login, because wrong email', async () => {
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send(createInbound('usenamo@gmail.com', 'teste'))
+        .expect(HttpStatus.UNAUTHORIZED)
+        .expect((response) => {
+          const { body } = response;
+          expect(body).toBeDefined();
+          const parsedBody = body as BaseResponseDTO;
+          expect(parsedBody.status).toBe(HttpStatus.UNAUTHORIZED);
+          expect(parsedBody.message).toBe('Unauthorized');
+        });
+    });
+  });
   describe('/auth/register', () => {
     it('should register an user', () => {
-      const inbound = new InboundLoginDto();
-      inbound.password = 'teste';
-      inbound.email = 'teste@gmail.com';
       return request(app.getHttpServer())
         .post('/auth/register')
-        .send(inbound)
+        .send(createInbound('teste@gmail.com', 'teste'))
         .expect(HttpStatus.CREATED);
     });
     it('should not register an user, because the email was already taken', async () => {

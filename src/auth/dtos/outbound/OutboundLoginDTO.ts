@@ -4,7 +4,7 @@ import { HttpStatus } from '@nestjs/common';
 export class OutboundLoginDTO extends BaseResponseDTO {
   constructor(
     status: HttpStatus,
-    private token: string,
+    public token: string,
   ) {
     super(
       status,

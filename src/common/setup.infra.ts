@@ -1,6 +1,7 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { InvalidUserData } from '../user/exceptions/InvalidUserData';
 import { AppExceptionFilter } from '../infra/filters/AppExceptionFilter';
+import { UnauthorizedFilter } from '../infra/filters/UnauthorizedFilter';
 
 export function setupPipes(app: INestApplication) {
   app.useGlobalPipes(
@@ -20,5 +21,5 @@ export function setupPipes(app: INestApplication) {
 }
 
 export function setupFilters(app: INestApplication) {
-  app.useGlobalFilters(new AppExceptionFilter());
+  app.useGlobalFilters(new AppExceptionFilter(), new UnauthorizedFilter());
 }
