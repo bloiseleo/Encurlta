@@ -1,10 +1,9 @@
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
-import bootstrapTestModule from '../setup';
+import { HttpStatus, INestApplication } from '@nestjs/common';
+import { testModuleAppV1 } from '../setup';
 import * as request from 'supertest';
 import { AuthModule } from '../../../src/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { InboundLoginDto } from '../../../src/auth/dtos/inbound/InboundLoginDto';
-import { setupFilters, setupPipes } from '../../../src/common/setup.infra';
 import { existsSync, rmSync } from 'fs';
 import { OutboundLoginDTO } from '../../../src/auth/dtos/outbound/OutboundLoginDTO';
 import { BaseResponseDTO } from '../../../src/common/dto/BaseDTO';
@@ -19,7 +18,7 @@ const createInbound = (email: string, password: string) => {
 describe('AuthModule', () => {
   let app: INestApplication;
   beforeAll(async () => {
-    const testModule = await bootstrapTestModule({
+    app = await testModuleAppV1({
       imports: [
         JwtModule.register({
           secret: 'secret',
@@ -27,11 +26,6 @@ describe('AuthModule', () => {
         AuthModule,
       ],
     });
-    const compiled = await testModule.compile();
-    app = compiled.createNestApplication();
-    setupPipes(app);
-    setupFilters(app);
-    await app.init();
   });
   describe('/auth/login', () => {
     it('should register and login', async () => {

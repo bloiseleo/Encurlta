@@ -12,9 +12,9 @@ Encurlta is a simple URL shortener.
 
 ## TO-DOS
 
-- [ ] Improve main.ts setup code
-    It's very messy and confuse.
-- [ ] Improve Testing module setup code
-    It cannot be reused in another e2e tests.
+- [x] Improve main.ts setup code
+    We have created an ApplicationBuilder that is able to create the whole application.
+- [x] Improve Testing module setup code
+    Since we already created an ApplicationBuilder, we can reuse this class to build the test app.
 - [ ] Improve organization of exceptions
     Some exceptions that are being used are declared as User exceptions, but it should be common exceptions.

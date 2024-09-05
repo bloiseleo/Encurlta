@@ -4,7 +4,7 @@ import UserService from '../../../src/user/services/UserService';
 import UserServiceImpl from '../../../src/user/services/UserServiceImpl';
 import userRepositoryMock from './mock/UserRepositoryMock';
 import EmailAlreadyTaken from '../../../src/user/exceptions/EmailAlreadyTaken';
-import { InvalidUserData } from '../../../src/user/exceptions/InvalidUserData';
+import { InvalidUserData } from '../../../src/common/exceptions/InvalidUserData';
 
 describe('UserService', () => {
   let userService: UserService;

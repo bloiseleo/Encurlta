@@ -1,5 +1,5 @@
 import { INestApplication } from '@nestjs/common';
-import bootstrapTestModule from '../setup';
+import { testModuleAppV1 } from '../setup';
 import { UserModule } from '../../../src/user/user.module';
 import UserServiceImpl from '../../../src/user/services/UserServiceImpl';
 import { User } from '../../../src/user/entities/user.entity';
@@ -9,12 +9,9 @@ import { existsSync, rmSync } from 'fs';
 describe('User', () => {
   let app: INestApplication;
   beforeAll(async () => {
-    const moduleRef = await bootstrapTestModule({
+    app = await testModuleAppV1({
       imports: [UserModule],
     });
-    const compiledModuleRef = await moduleRef.compile();
-    app = compiledModuleRef.createNestApplication();
-    await app.init();
   });
   describe('UserService', () => {
     it('should contain an UserService', async () => {

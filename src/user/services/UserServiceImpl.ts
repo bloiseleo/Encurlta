@@ -4,7 +4,7 @@ import UserService from './UserService';
 import { Repository } from 'typeorm';
 import EmailAlreadyTaken from '../exceptions/EmailAlreadyTaken';
 import { Injectable } from '@nestjs/common';
-import { InvalidUserData } from '../exceptions/InvalidUserData';
+import { InvalidUserData } from '../../common/exceptions/InvalidUserData';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
