@@ -1,13 +1,14 @@
 import AuthService from './AuthService';
-import UserService from '../../user/services/UserService';
 import { User } from '../../user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
-import { UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { compareSync } from 'bcrypt';
+import UserServiceImpl from '../../user/services/UserServiceImpl';
 
+@Injectable()
 export class AuthServiceImpl implements AuthService {
   constructor(
-    private userService: UserService,
+    private userService: UserServiceImpl,
     private jwtService: JwtService,
   ) {}
   async login(email: string, password: string): Promise<string> {
