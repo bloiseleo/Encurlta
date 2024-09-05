@@ -1,8 +1,10 @@
 import { Test } from '@nestjs/testing';
-import { ModuleMetadata } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { ModuleMetadata } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-export default async function bootstrapTestModule(moduleMetadata: ModuleMetadata) {
+export default async function bootstrapTestModule(
+  moduleMetadata: ModuleMetadata,
+) {
   return Test.createTestingModule({
     imports: [
       TypeOrmModule.forRoot({
@@ -11,10 +13,10 @@ export default async function bootstrapTestModule(moduleMetadata: ModuleMetadata
         entities: ['./src/**/entities/*.entity.ts'],
         synchronize: true,
       }),
-      ...moduleMetadata.imports
+      ...moduleMetadata.imports,
     ],
     exports: moduleMetadata.exports,
     providers: moduleMetadata.providers,
-    controllers: moduleMetadata.controllers
+    controllers: moduleMetadata.controllers,
   });
 }

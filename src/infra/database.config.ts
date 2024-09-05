@@ -17,8 +17,8 @@ export function getConfig(
     username,
     password,
     synchronize: false,
-    migrations: ['./migrations/**/*.ts'],
-    entities: ['./src/**/entities/*.entity.ts'],
+    migrations: ['dist/migrations/**/*.js'],
+    entities: ['dist/**/entities/*.entity.js'],
   };
 }
 // Credentials for local development, only

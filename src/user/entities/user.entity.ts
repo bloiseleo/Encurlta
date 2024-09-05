@@ -1,6 +1,5 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { hashSync } from 'bcrypt';
-
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
