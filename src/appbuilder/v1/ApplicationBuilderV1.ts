@@ -31,6 +31,10 @@ export class ApplicationBuilderV1 extends ApplicationBuilder {
     this.setupPipes(app);
     this.setupFilters(app);
     app.setGlobalPrefix('api');
+    app.enableCors({
+      methods: '*',
+      origin: ['http://localhost:3001'],
+    });
     return app;
   }
 }

@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import SignIn from "./pages/SignIn";
+import AlertModal from './components/modals/AlertModal';
 
 const router = createBrowserRouter([{
   path: '/login',
