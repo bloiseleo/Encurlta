@@ -5,6 +5,8 @@ export default interface LoginModel {
 
 export function emailErrorMessages(type?: string) {
   switch (type) {
+    case "value":
+      return "Invalid Email/Password";
     case "required":
       return "Email is required";
     case 'validEmail':
@@ -17,6 +19,8 @@ export function emailErrorMessages(type?: string) {
 export function passwordErrorMessagesFactory(name: string) {
   return function passwordErrorMessages(type?: string) {
     switch (type) {
+      case 'value':
+        return 'Invalid Email/Password';
       case 'required':
         return `${name} is required`;
       case 'longEnough':

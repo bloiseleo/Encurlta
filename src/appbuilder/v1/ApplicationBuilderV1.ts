@@ -5,6 +5,7 @@ import { AppModule } from '../../app.module';
 import { InvalidUserData } from '../../common/exceptions/InvalidUserData';
 import { AppExceptionFilter } from '../../infra/filters/AppExceptionFilter';
 import { UnauthorizedFilter } from '../../infra/filters/UnauthorizedFilter';
+import * as cookieParser from 'cookie-parser';
 
 export class ApplicationBuilderV1 extends ApplicationBuilder {
   setupFilters(app: INestApplication) {
@@ -32,9 +33,11 @@ export class ApplicationBuilderV1 extends ApplicationBuilder {
     this.setupFilters(app);
     app.setGlobalPrefix('api');
     app.enableCors({
-      methods: '*',
+      methods: ['POST', 'GET'],
       origin: ['http://localhost:3001'],
+      credentials: true,
     });
+    app.use(cookieParser());
     return app;
   }
 }

@@ -39,6 +39,7 @@ export default function SignIn() {
             showSuccess: false
           })
           setLoading(false);
+          return;
         };
         setModalInfo(old => ({
           ...old,

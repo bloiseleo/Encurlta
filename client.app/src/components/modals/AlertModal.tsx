@@ -14,14 +14,14 @@ export default function AlertModal({ channel, message, title, show = false }: Pr
     channel.send("close_modal", !show);
   };
   return show ? <div className={"z-10 h-screen w-screen bg-gray-500 bg-opacity-90 absolute top-0 left-0"}>
-    <div className={"w-[90%] h-1/4 bg-white rounded text-center p-4 relative"} style={{
+    <div className={"w-[90%] h-1/4 max-h-[200px] bg-white rounded text-center p-4 relative"} style={{
       margin: '0 auto',
       transform: 'translateY(150%)'
     }}>
       <CloseIcon onClick={() => toggleModal()} className={"absolute top-5 right-5"}/>
-      <div className={"flex flex-col items-center justify-center h-full"}>
+      <div className={"flex flex-col items-center justify-center h-full p-10"}>
         <WarningIcon fontSize={"large"} color={"warning"} />
-        <div className={"flex flex-col mt-6"}>
+        <div className={"flex flex-col"}>
           <span className="text-2xl">{title}</span>
           <p className={"mt-4"}>{message}</p>
         </div>

@@ -21,7 +21,8 @@ export default class EncurltaAPIFetchImpl implements EncurltaAPI {
       const response = await fetch(`${this.BASE_URL}/api/auth/register`, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: this.buildHeaders()
+        headers: this.buildHeaders(),
+        credentials: 'include'
       });
       return await response.json();
     } catch (e: unknown) {
@@ -38,7 +39,8 @@ export default class EncurltaAPIFetchImpl implements EncurltaAPI {
       const response = await fetch(`${this.BASE_URL}/api/auth/login`, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: this.buildHeaders()
+        headers: this.buildHeaders(),
+        credentials: 'include',
       });
       return await response.json();
     } catch(e: unknown) {
