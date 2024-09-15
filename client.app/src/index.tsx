@@ -22,7 +22,7 @@ root.render(
   <React.StrictMode>
     <>
       <Header></Header>
-      <main className={"p-4"}>
+      <main className={"p-4 md:max-w-[60%] md:mt-0 md:mb-0 md:ml-auto md:mr-auto"}>
         <RouterProvider router={router} />
       </main>
     </>

@@ -1,6 +1,6 @@
 import Input from "../components/atoms/Input";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import LoginModel, {
   emailErrorMessages,
@@ -30,7 +30,6 @@ export default function Login() {
           })
           return;
         }
-        const { token } = res;
       })
   }
   return <>
